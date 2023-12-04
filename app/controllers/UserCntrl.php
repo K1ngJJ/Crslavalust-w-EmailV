@@ -14,6 +14,9 @@ public function login(){
 public function register(){
     return $this->call->view('auth/register');
 }
+public function upload(){
+    return $this->call->view('vfemail');
+}
 
 
 
@@ -45,12 +48,12 @@ public function register(){
                         $content = "click the link to verify <a href='" . site_url("pending") . "/" . $user['id'] . "'>Link</a>";
                         $this->sendVerify($recepient_email,$subject,$content);
                         
-                        $this->call->view('errors/error_404');
+                        $this->call->view('login');
                         return;
                     } else {
                         $this->session->set_userdata('userEmail', $user['email']);
                         $data['email'] = $this->session->userdata('userEmail');
-                        $this->call->view('home',$data);
+                        $this->call->view('admin',$data);
                         return;
                     }
                 } else {
@@ -76,9 +79,9 @@ public function register(){
         {
             $this->UserModel->updateToken($id,$data);
             $this->session->set_userdata('userEmail', $data['email']);
-            $this->call->view('home',$data);
+            $this->call->view('admin',$data);
         } else {
-            $this->call->view('errors/error_404');
+            $this->call->view('login');
         }
     }
 
@@ -91,6 +94,39 @@ public function register(){
         $this->email->send();
     }
 
+    Public function uploadFile(){
+        $this->call->library('upload', $_FILES["fileToUpload"]);
+		$this->upload
+			->set_dir('public')
+			->allowed_extensions(array('jpg'))
+			->allowed_mimes(array('image/jpeg'))
+			->is_image();
+		If($this->upload->do_upload()) {
+			$data['filename'] = $this->upload->get_filename();
+            
+            $name = $this->io->post('name');
+            $recepient_email = $this->io->post('email');
+            $subject = $this->io->post('subject');
+            $content = $this->io->post('content');
+            $path = "public/" . $this->upload->get_filename();
+            $this->sendAttatchedEmail($name, $recepient_email, $subject, $content, $path);
+			$this->call->view('vfemail',$data);
+		} else {
+			$data['errors'] = $this->upload->get_errors();
+			$this->call->view('vfemail', $data);
+		}
+    }
+
+    public function sendAttatchedEmail($name,$recepient_email,$subject,$content,$path)
+    {
+        $fullContent = "Hello, <br><br>This is a sample email.<br>These are the email's contents: <br>" . $content;
+        $this->email->sender($this->session->userdata('userEmail'), $name);
+        $this->email->recipient($recepient_email);
+        $this->email->subject($subject);
+        $this->email->email_content($fullContent,'html');
+        $this->email->attachment($path);
+        $this->email->send();
+    }
 
     public function logout()
 {
@@ -109,17 +145,7 @@ public function register(){
     }
 }
 
-Public function send($email,$name,$subject,$content,$path)
-{
-    $fullContent = "Hello, <br><br>This is a sample email.<br>These are the email's contents: <br>" . $content;
-    $this->email->recipient($email);
-    $this->email->sender($this->session->userdata('userEmail'), $name);
 
-    $this->email->subject($subject);
-    $this->email->email_content($fullContent,'html');
-    $this->email->attachment($path);
-    $this->email->send();
-}
 
     
 }

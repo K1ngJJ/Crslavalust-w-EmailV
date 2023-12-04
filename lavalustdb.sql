@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 27, 2023 at 08:24 AM
+-- Generation Time: Dec 04, 2023 at 03:58 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -55,6 +55,7 @@ CREATE TABLE `table_user` (
   `email` text NOT NULL,
   `password` text NOT NULL,
   `role` varchar(50) NOT NULL DEFAULT 'user',
+  `status` varchar(50) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -62,14 +63,15 @@ CREATE TABLE `table_user` (
 -- Dumping data for table `table_user`
 --
 
-INSERT INTO `table_user` (`id`, `email`, `password`, `role`, `created_at`) VALUES
-(25, 'admin@gmail.com', '$2y$10$LBydJvdLqi7m5aiN.TrNP.xIPQwB2bfjqf3xTB1fbyw1IyrRF5jxa', 'admin', '2023-11-27 15:23:32'),
-(26, 'customer@gmail.com', '$2y$10$LBydJvdLqi7m5aiN.TrNP.xIPQwB2bfjqf3xTB1fbyw1IyrRF5jxa', 'user', '2023-11-27 15:26:59'),
-(27, 'customer', '$2y$10$R1V1hrH1BRCcgz3HGLzK5ePPtKQsc.Igg4a/0i10PV24OSJCPRYDW', 'user', '2023-11-27 15:40:06'),
-(28, 'customer@gmail.com', '$2y$10$0mpBXWNQDgqn/DXMIf16XOWm9pYXJmXDb0kkA0DbcNRSd8TTwGPtS', 'user', '2023-11-27 15:42:48'),
-(29, 'customer@gmail.com', '$2y$10$qsyqXO6uvn.Z.aF1sjVGNOwQjm9pEyLflnrquUhJynZkBm.dA6pVW', 'user', '2023-11-27 15:42:59'),
-(30, 'customer@gmail.com', '$2y$10$5eyidz1Mara3nhzztZN1JuRiVjxpCO1/SNGE/bRyRRwBcLtswKKkO', 'user', '2023-11-27 15:43:40'),
-(31, 'pachecoking38@gmail.com', '$2y$10$/rozMb8xOVfDBIkmrmJZweArGSR6EIkbs2T6v5PUo9tfWF7KwjYtm', 'user', '2023-11-27 15:59:26');
+INSERT INTO `table_user` (`id`, `email`, `password`, `role`, `status`, `created_at`) VALUES
+(25, 'admin@gmail.com', '$2y$10$LBydJvdLqi7m5aiN.TrNP.xIPQwB2bfjqf3xTB1fbyw1IyrRF5jxa', 'admin', 'verified', '2023-11-27 15:23:32'),
+(26, 'customer@gmail.com', '$2y$10$LBydJvdLqi7m5aiN.TrNP.xIPQwB2bfjqf3xTB1fbyw1IyrRF5jxa', 'user', 'verified', '2023-11-27 15:26:59'),
+(27, 'customer', '$2y$10$R1V1hrH1BRCcgz3HGLzK5ePPtKQsc.Igg4a/0i10PV24OSJCPRYDW', 'user', 'verified', '2023-11-27 15:40:06'),
+(28, 'customer@gmail.com', '$2y$10$0mpBXWNQDgqn/DXMIf16XOWm9pYXJmXDb0kkA0DbcNRSd8TTwGPtS', 'user', 'verified', '2023-11-27 15:42:48'),
+(29, 'customer@gmail.com', '$2y$10$qsyqXO6uvn.Z.aF1sjVGNOwQjm9pEyLflnrquUhJynZkBm.dA6pVW', 'user', 'verified', '2023-11-27 15:42:59'),
+(30, 'customer@gmail.com', '$2y$10$5eyidz1Mara3nhzztZN1JuRiVjxpCO1/SNGE/bRyRRwBcLtswKKkO', 'user', 'verified', '2023-11-27 15:43:40'),
+(31, 'pachecokingjj@gmail.com', '$2y$10$/rozMb8xOVfDBIkmrmJZweArGSR6EIkbs2T6v5PUo9tfWF7KwjYtm', 'user', 'verified', '2023-11-27 15:59:26'),
+(32, 'pachecoking38@gmail.com', '$2y$10$bG3YEBg.rT4a2..8rP15E.laM.6gtg0qWO7/Ch4Sqr8PZ.Dx7hemS', 'admin', 'verified', '2023-12-04 21:47:43');
 
 --
 -- Indexes for dumped tables
@@ -101,7 +103,7 @@ ALTER TABLE `table_employee`
 -- AUTO_INCREMENT for table `table_user`
 --
 ALTER TABLE `table_user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

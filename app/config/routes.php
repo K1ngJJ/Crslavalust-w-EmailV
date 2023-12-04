@@ -67,12 +67,15 @@ $router->get('/contact', 'MainCntrl::contact');
 $router->get('/login', 'MainCntrl::login');
 $router->get('/logout', 'UserCntrl::logout');
 $router->get('/register', 'MainCntrl::register');
+$router->get('/vfemail', 'MainCntrl::vfemail');
+
 
 $router->post('/create', 'UserCntrl::create');
 $router->post('/auth', 'UserCntrl::auth');
 
 $router->get('/logout', 'UserCntrl::logout');
 $router->get('/pending/(:num)', 'UserCntrl::pending');
+$router->post('/upload', 'UserCntrl::uploadFile'); 
 //para sa login at register
 $router->match('/signup', 'MainCntrl::signup', 'GET|POST');
 

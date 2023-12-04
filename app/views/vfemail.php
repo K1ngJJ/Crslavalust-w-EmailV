@@ -70,57 +70,6 @@ body {
 	float: left;
 	margin-top: 2px;
 }
-table.table tr th, table.table tr td {
-	border-color: #e9e9e9;
-	padding: 12px 15px;
-	vertical-align: middle;
-}
-table.table tr th:first-child {
-	width: 60px;
-}
-table.table tr th:last-child {
-	width: 100px;
-}
-table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
-}
-table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
-}
-table.table th i {
-	font-size: 13px;
-	margin: 0 5px;
-	cursor: pointer;
-}	
-table.table td:last-child i {
-	opacity: 0.9;
-	font-size: 22px;
-	margin: 0 5px;
-}
-table.table td a {
-	font-weight: bold;
-	color: #566787;
-	display: inline-block;
-	text-decoration: none;
-	outline: none !important;
-}
-table.table td a:hover {
-	color: #2196F3;
-}
-table.table td a.edit {
-	color: #FFC107;
-}
-table.table td a.delete {
-	color: #F44336;
-}
-table.table td i {
-	font-size: 19px;
-}
-table.table .avatar {
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 10px;
-}
 .pagination {
 	float: right;
 	margin: 0 0 5px;
@@ -227,9 +176,9 @@ table.table .avatar {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Shop</div>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="/admin">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                Crud
                             </a>
 							<a class="nav-link" href="/vfemail">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -275,134 +224,49 @@ table.table .avatar {
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Reservations</b></h2>
+						<h2 class="mail">Email <b><i style="color: #17a2b8;" class="material-icons" data-toggle="tooltip" title="Mail">mail</i></b></h2>
 					</div>
-					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Reservation</span></a>				
-					</div>
-				</div>
-			</div>
-					<table class="table table-striped table-hover">
-			<thead>
-				<tr>
-					<th></th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Details</th>
-					<th>Phone</th>
-					<th style="width: 150px;">Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($employee as $val): ?>
-					<tr>
-						<th></th>
-						<td><?= $val['name']; ?></td>
-						<td><?= $val['email']; ?></td>
-						<td><?= $val['address']; ?></td>
-						<td><?= $val['phone']; ?></td>
-						<td>
-							<a href='<?= base_url(); ?>vfemail' class="mail">
-								<i style="color: #17a2b8;" class="material-icons" data-toggle="tooltip" title="Mail">mail</i>
-							</a>
-							<a href='<?= base_url(); ?>/edit/<?= $val['id']; ?>' class="modal-edit 1">
-								<i style="color: #17a2b8;" class="material-icons" data-toggle="tooltip" title="Edit">edit</i>
-							</a>
-							<a href='<?= base_url(); ?>/delete/<?= $val['id']; ?>' class="delete">
-								<i class="material-icons" data-toggle="tooltip" title="Delete">delete</i>
-							</a>
-						</td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		</div>
-	</div>        
-</div>
-<div>
+                    <hr>
 <div class="container-xl">
-<form action="/save" method="post">
-		<div class="table-wrapper">
-				<div class="form-group">
-				<div class="table-title">
-					<div class="row">
-						<div class="col-sm-6">
-							<h2>Edit <b>Reservations</b></h2>
-						</div>
-					</div>
-				</div>
+<form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="fileToUpload" class="form-label">Upload Image:</label>
+                <input type="file" class="form-control" name="fileToUpload" id="fileToUpload">
+            </div>
+<hr>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" name="name">
+            </div>
 
-                    <input type='hidden' name='id' value='<?php if(isset($selected['id'])): ?><?= $selected['id']; endif; ?>'>
-						<label>Name</label>
-						<input type="text" class="form-control" name="name" value='<?php if(isset($selected['name'])): ?><?= $selected['name']; endif; ?>' required />
-					</div>
-					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" name="email" value='<?php if(isset($selected['email'])): ?><?= $selected['email']; endif; ?>'required />
-					</div>
-					<div class="form-group">
-						<label>Details</label>
-						<input type="text" class="form-control" name="address" value='<?php if(isset($selected['address'])): ?><?= $selected['address']; endif; ?>' required />
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" name="phone" value='<?php if(isset($selected['phone'])): ?><?= $selected['phone']; endif; ?>'required />
-					</div>					
-		<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
-				</div>	
-				</div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="text" class="form-control" name="email">
+            </div>
+
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject:</label>
+                <input type="text" class="form-control" name="subject">
+            </div>
+
+            <div class="mb-3">
+                <label for="content" class="form-label">Content:</label>
+                <input type="text" class="form-control" name="content">
+            </div>
+<hr>
+            <button type="submit" class="btn btn-primary">Send</button>
+            <a href="/admin" class="btn btn-danger">Back</a>
+            
+        </form>
 </div>
-	</form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-<!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-    <div class="modal-content">
-			<form action="/save" method="post">
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-                    <input type='hidden' name='id' value='<?php if(isset($selected['id'])): ?><?= $selected['id']; endif; ?>'>
-						<label>Name</label>
-						<input type="text" class="form-control" name="name" required />
-					</div>
-					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" name="email" required />
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<input type="text" class="form-control" name="address" required />
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" name="phone" required />
-					</div>					
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
-				</div>
-			</form>
-		</div>
-	</div>
 </div>
 </div>
 <!-- Edit Modal HTML -->
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="public/jsadmin/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="public/assets/demo/chart-area-demo.js"></script>
-        <script src="public/assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="public/jsadmin/datatables-simple-demo.js"></script>
-
 </body>
 </html>

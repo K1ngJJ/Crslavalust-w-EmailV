@@ -58,6 +58,10 @@ class MainCntrl extends Controller {
   public function testimonial() {
     $this->call->view('testimonial');
     }
+
+    public function vfemail(){
+      return $this->call->view('vfemail');
+  }
     
 
 
