@@ -31,7 +31,7 @@ public function upload(){
             "status" => "unverified",
         );
         $this->UserModel->addUser($data);
-        redirect('login');
+        redirect('auth/login');
     }
     public function auth() {
         $email = $this->io->post('email');
@@ -48,21 +48,21 @@ public function upload(){
                         $content = "click the link to verify <a href='" . site_url("pending") . "/" . $user['id'] . "'>Link</a>";
                         $this->sendVerify($recepient_email,$subject,$content);
                         
-                        $this->call->view('login');
+                        $this->call->view('auth/login');
                         return;
                     } else {
                         $this->session->set_userdata('userEmail', $user['email']);
                         $data['email'] = $this->session->userdata('userEmail');
-                        $this->call->view('admin',$data);
+                        $this->call->view('home',$data);
                         return;
                     }
                 } else {
-                    redirect('login');
+                    redirect('auth/login');
                     return;
                 }
             }
         }
-        redirect('login');
+        redirect('auth/login');
     }
 
     // public function logout()
@@ -79,9 +79,9 @@ public function upload(){
         {
             $this->UserModel->updateToken($id,$data);
             $this->session->set_userdata('userEmail', $data['email']);
-            $this->call->view('admin',$data);
+            $this->call->view('home',$data);
         } else {
-            $this->call->view('login');
+            $this->call->view('auth/login');
         }
     }
 
